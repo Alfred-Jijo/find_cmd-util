@@ -1,5 +1,3 @@
-
-
 # Find Tool
 
 A simple command-line tool to find files and directories in a specified path, written in Rust.
@@ -15,14 +13,14 @@ A simple command-line tool to find files and directories in a specified path, wr
 Make sure you have Rust and Cargo installed on your system. Then, clone this repository and navigate to the project directory.
 
 ```sh
-git clone <repository_url>
-cd find_tool
+    git clone <repository_url>
+    cd find_tool
 ```
 
 Build the project using Cargo:
 
 ```sh
-cargo build --release
+    cargo build --release
 ```
 
 The compiled binary will be available in the `target/release` directory.
@@ -33,13 +31,13 @@ You can add this to yout path manually or if you want to use `cargo install` to 
 2. Build your project using Cargo:
 
 ```sh
-cargo build --release
+    cargo build --release
 ```
 
 3. Once the build completes, use `cargo install` to install your tool globally:
 
 ```sh
-cargo install --path .
+    cargo install --path .
 ```
 
 This command will install your tool globally on your system. Now, users can run your tool from anywhere in the terminal by simply typing its name, followed by any command line arguments.
@@ -50,7 +48,7 @@ This command will install your tool globally on your system. Now, users can run 
 Run the program with the following command:
 
 ```sh
-./target/release/find_tool <search_path> [-f] [-d]
+    ./target/release/find_tool <search_path> [-f] [-d]
 ```
 
 Replace `<search_path>` with the directory you want to search in. Optionally, include the flags `-f` to find only files and `-d` to find only directories.
@@ -60,19 +58,19 @@ Replace `<search_path>` with the directory you want to search in. Optionally, in
 - To find both files and directories in a specific path:
 
 ```sh
-./target/release/find_tool /path/to/search
+    ./target/release/find_tool /path/to/search
 ```
 
 - To find only files in a specific path:
 
 ```sh
-./target/release/find_tool /path/to/search -f
+    ./target/release/find_tool /path/to/search -f
 ```
 
 - To find only directories in a specific path:
 
 ```sh
-./target/release/find_tool /path/to/search -d
+    ./target/release/find_tool /path/to/search -d
 ```
 
 ## License
