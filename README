@@ -1,6 +1,5 @@
 
 
-```markdown
 # Find Tool
 
 A simple command-line tool to find files and directories in a specified path, written in Rust.
@@ -79,4 +78,4 @@ Replace `<search_path>` with the directory you want to search in. Optionally, in
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
+
