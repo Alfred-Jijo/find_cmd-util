@@ -1,12 +1,12 @@
 
-# find_tool
+# find
 
 ## Overview
-`find_tool` is a command-line utility for searching files and directories in a specified path.
+`find` is a command-line utility for searching files and directories in a specified path.
 
 ## Usage
 ```
-find_tool [OPTIONS] <path>
+find [OPTIONS] <path>
 ```
 
 - `<path>`: Specifies the search path.
@@ -18,16 +18,16 @@ If no options are provided, both files and directories will be displayed by defa
 ## Examples
 - To search for both files and directories in the current directory:
 ```sh
-find_tool .
+find .
 ```
 
 - To search for only files in a specific directory:
 ```sh
-find_tool /path/to/directory -f
+find /path/to/directory -f
 ```
 - To search for only directories in a specific directory:
 ```sh
-find_tool /path/to/directory -d
+find /path/to/directory -d
 ```
 
 ## License
