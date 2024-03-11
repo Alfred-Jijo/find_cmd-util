@@ -1,38 +1,50 @@
+use clap::{App, Arg, ArgMatches};
 use colored::Colorize;
-use std::env;
 use std::fs;
 use std::path::PathBuf;
-use std::thread; // Import Colorize trait
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Get the search path and flags from command line arguments
-    let args: Vec<String> = env::args().skip(1).collect(); // Convert iterator to Vec<String>
-    let search_path = args.first().cloned().unwrap_or_else(|| {
-        println!("Usage: find_tool <search_path> [-f] [-d]");
-        std::process::exit(1);
-    });
-    let find_files = args.iter().any(|arg| arg == "-f");
-    let find_dirs = args.iter().any(|arg| arg == "-d");
+    let matches: ArgMatches = App::new("find_tool")
+        .about("Searches for files and directories in the specified path")
+        .arg(
+            Arg::with_name("path")
+                .help("Sets the search path")
+                .required(true)
+                .index(1),
+        )
+        .arg(
+            Arg::with_name("files")
+                .short('f')
+                .long("files")
+                .help("Find files"),
+        )
+        .arg(
+            Arg::with_name("directories")
+                .short('d')
+                .long("directories")
+                .help("Find directories"),
+        )
+        .get_matches();
 
-    // Traverse the directory and find files and directories
-    let search_dir: PathBuf = PathBuf::from(&search_path);
-    let mut handles: Vec<thread::JoinHandle<()>> = vec![];
+    let search_path: &str = matches.value_of("path").unwrap();
+    let mut find_files: bool = matches.is_present("files");
+    let mut find_dirs: bool = matches.is_present("directories");
+
+    // If no flags are provided, set both find_files and find_dirs to true
+    if !find_files && !find_dirs {
+        find_files = true;
+        find_dirs = true;
+    }
+
+    let search_dir: PathBuf = PathBuf::from(search_path);
     for entry in fs::read_dir(search_dir)? {
         let entry: fs::DirEntry = entry?;
         let entry_path: PathBuf = entry.path();
-        let find_files_clone: bool = find_files;
-        let find_dirs_clone: bool = find_dirs;
-        let handle: thread::JoinHandle<()> = thread::spawn(move || {
-            if entry_path.is_file() && find_files_clone {
-                println!("{}", entry_path.display().to_string().green()); // Apply green color
-            } else if entry_path.is_dir() && find_dirs_clone {
-                println!("{}", entry_path.display().to_string().blue()); // Apply blue color
-            }
-        });
-        handles.push(handle);
-    }
-    for handle in handles {
-        handle.join().expect("Error joining thread");
+        if entry_path.is_file() && find_files {
+            println!("{}", entry_path.display().to_string().blink());
+        } else if entry_path.is_dir() && find_dirs {
+            println!("{}", entry_path.display().to_string().bright_cyan());
+        }
     }
     Ok(())
 }
